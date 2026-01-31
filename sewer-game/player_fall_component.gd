@@ -1,0 +1,42 @@
+## Handles player physics while jumping/falling
+class_name PlayerFallComponent extends PlayerComponent
+
+@export_category("Fall Timing")
+# Time before switching to long fall animation
+@export var long_fall_timer: float = 1.0
+var _long_fall_timer: float = 0.0
+
+var stored_speed: float = 0.0
+
+
+func setup() -> void:
+	player.state_changed.connect(_on_state_changed)
+
+func update(delta: float) -> void:
+	if _long_fall_timer > 0:
+		_long_fall_timer -= delta
+		if _long_fall_timer <= 0:
+			player.change_state(Player.State.LONG_FALL)
+
+func physics_update(delta: float) -> void:
+	_check_wall_bounce()
+	_state_change_checks()
+
+func _on_state_changed(new_state: Player.State) -> void:
+	if player.is_airborne():
+		_long_fall_timer = long_fall_timer
+
+func _check_wall_bounce():
+	if player.is_on_wall() and player.is_falling():
+		stored_speed = -stored_speed
+		player.velocity.x = stored_speed
+	else:
+		stored_speed = player.velocity.x
+
+func _state_change_checks():
+	if player.velocity.y < 0:
+		return
+	if player.is_on_floor() and player.current_state == Player.State.LONG_FALL:
+		player.change_state(Player.State.HARD_LAND)
+	elif player.is_on_floor():
+		player.change_state(Player.State.LAND)

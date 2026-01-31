@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://ch2d4vly3vsnh"]
+
+[ext_resource type="SpriteFrames" uid="uid://cygudhf8ulwq" path="res://art/rat.aseprite" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://c1f1rhy5canpr" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://dgce51i0amvpu" path="res://scripts/player_gravity_component.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://d3t52l0mf6v1w" path="res://scripts/player_movement_component.gd" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://bvns8mmkmnn43" path="res://scripts/player_tweener_component.gd" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://deplaa0h2karb" path="res://scripts/tween_settings.gd" id="6_fjrip"]
+[ext_resource type="Script" uid="uid://d3ylumvaw7ck" path="res://scripts/tween_settings_scale.gd" id="7_smehm"]
+[ext_resource type="Script" uid="uid://cepd103k0a1oj" path="res://player_sprite_component.gd" id="8_smehm"]
+[ext_resource type="Script" uid="uid://bek5t3at1l1sj" path="res://player_fall_component.gd" id="9_ur7pv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3vyb7"]
+radius = 3.0
+height = 10.0
+
+[sub_resource type="Resource" id="Resource_y4r1p"]
+script = ExtResource("7_smehm")
+initial_scale = Vector2(1.8, 0.2)
+duration = 0.375
+metadata/_custom_type_script = "uid://d3ylumvaw7ck"
+
+[sub_resource type="Resource" id="Resource_smehm"]
+script = ExtResource("7_smehm")
+initial_scale = Vector2(2.8, 0.2)
+duration = 0.75
+metadata/_custom_type_script = "uid://d3ylumvaw7ck"
+
+[sub_resource type="Resource" id="Resource_ur7pv"]
+script = ExtResource("7_smehm")
+initial_scale = Vector2(0.2, 2.2)
+duration = 0.333
+metadata/_custom_type_script = "uid://d3ylumvaw7ck"
+
+[node name="Player" type="CharacterBody2D" unique_id=1169577549]
+script = ExtResource("1_g2els")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=195221426]
+sprite_frames = ExtResource("1_3vyb7")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.052561242
+offset = Vector2(0, -6)
+
+[node name="PhysicalCollider" type="CollisionShape2D" parent="." unique_id=241852488]
+position = Vector2(0, -5)
+shape = SubResource("CapsuleShape2D_3vyb7")
+
+[node name="PlayerGravityComponent" type="Node" parent="." unique_id=505088673]
+script = ExtResource("3_qhqgy")
+metadata/_custom_type_script = "uid://dgce51i0amvpu"
+
+[node name="PlayerMovementComponent" type="Node" parent="." unique_id=653352512]
+script = ExtResource("4_dqkch")
+active_states = Array[int]([0, 1, 2, 3])
+metadata/_custom_type_script = "uid://d3t52l0mf6v1w"
+
+[node name="PlayerTweenComponent" type="Node" parent="." unique_id=1856121804 node_paths=PackedStringArray("scale_target", "position_target")]
+script = ExtResource("5_qlg0r")
+tween_dict = Dictionary[int, ExtResource("6_fjrip")]({
+2: SubResource("Resource_y4r1p"),
+3: SubResource("Resource_smehm"),
+4: SubResource("Resource_ur7pv")
+})
+scale_target = NodePath("../AnimatedSprite2D")
+position_target = NodePath("..")
+metadata/_custom_type_script = "uid://bvns8mmkmnn43"
+
+[node name="PlayerSpriteComponent" type="Node" parent="." unique_id=921268387]
+script = ExtResource("8_smehm")
+anim_keys = Dictionary[int, String]({
+0: "idle",
+1: "move",
+2: "idle",
+3: "hard_land",
+4: "jump",
+5: "fall",
+6: "long_fall"
+})
+metadata/_custom_type_script = "uid://cepd103k0a1oj"
+
+[node name="PlayerFallComponent" type="Node" parent="." unique_id=1710096405]
+script = ExtResource("9_ur7pv")
+active_states = Array[int]([4, 5, 6, 7])
+metadata/_custom_type_script = "uid://bek5t3at1l1sj"

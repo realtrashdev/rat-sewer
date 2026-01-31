@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ch2d4vly3vsnh"]
+
+[ext_resource type="Texture2D" uid="uid://cygudhf8ulwq" path="res://art/rat.aseprite" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://c1f1rhy5canpr" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://dgce51i0amvpu" path="res://player_gravity_component.gd" id="3_qhqgy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3vyb7"]
+radius = 3.0
+height = 10.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1169577549]
+script = ExtResource("1_g2els")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1527960347]
+texture = ExtResource("1_3vyb7")
+offset = Vector2(0, -6)
+
+[node name="PhysicalCollider" type="CollisionShape2D" parent="." unique_id=241852488]
+position = Vector2(0, -5)
+shape = SubResource("CapsuleShape2D_3vyb7")
+
+[node name="PlayerGravityComponent" type="Node" parent="." unique_id=505088673]
+script = ExtResource("3_qhqgy")
+active_states = Array[int]([0])
+metadata/_custom_type_script = "uid://dgce51i0amvpu"
