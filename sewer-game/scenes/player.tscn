@@ -55,6 +55,11 @@ script = ExtResource("4_dqkch")
 active_states = Array[int]([0, 1, 2, 3])
 metadata/_custom_type_script = "uid://d3t52l0mf6v1w"
 
+[node name="PlayerFallComponent" type="Node" parent="." unique_id=1710096405]
+script = ExtResource("9_ur7pv")
+active_states = Array[int]([4, 5, 6, 7])
+metadata/_custom_type_script = "uid://bek5t3at1l1sj"
+
 [node name="PlayerTweenComponent" type="Node" parent="." unique_id=1856121804 node_paths=PackedStringArray("scale_target", "position_target")]
 script = ExtResource("5_qlg0r")
 tween_dict = Dictionary[int, ExtResource("6_fjrip")]({
@@ -78,8 +83,3 @@ anim_keys = Dictionary[int, String]({
 6: "long_fall"
 })
 metadata/_custom_type_script = "uid://cepd103k0a1oj"
-
-[node name="PlayerFallComponent" type="Node" parent="." unique_id=1710096405]
-script = ExtResource("9_ur7pv")
-active_states = Array[int]([4, 5, 6, 7])
-metadata/_custom_type_script = "uid://bek5t3at1l1sj"
