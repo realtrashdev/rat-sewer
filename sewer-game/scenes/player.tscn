@@ -52,6 +52,7 @@ metadata/_custom_type_script = "uid://dgce51i0amvpu"
 
 [node name="PlayerMovementComponent" type="Node" parent="." unique_id=653352512]
 script = ExtResource("4_dqkch")
+move_speed = 71.0
 active_states = Array[int]([0, 1, 2, 3])
 metadata/_custom_type_script = "uid://d3t52l0mf6v1w"
 

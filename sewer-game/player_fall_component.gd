@@ -3,7 +3,7 @@ class_name PlayerFallComponent extends PlayerComponent
 
 @export_category("Fall Timing")
 # Time before switching to long fall animation
-@export var long_fall_timer: float = 1.0
+@export var long_fall_timer: float = 0.33
 var _long_fall_timer: float = 0.0
 
 var stored_speed: float = 0.0
@@ -13,18 +13,17 @@ func setup() -> void:
 	player.state_changed.connect(_on_state_changed)
 
 func update(delta: float) -> void:
-	if _long_fall_timer > 0:
-		_long_fall_timer -= delta
-		if _long_fall_timer <= 0:
-			player.change_state(Player.State.LONG_FALL)
+	pass
 
 func physics_update(delta: float) -> void:
 	_check_wall_bounce()
 	_state_change_checks()
 
 func _on_state_changed(new_state: Player.State) -> void:
-	if player.is_airborne():
+	if player.is_falling():
 		_long_fall_timer = long_fall_timer
+	else:
+		_long_fall_timer = 0
 
 func _check_wall_bounce():
 	if player.is_on_wall() and player.is_falling():

@@ -14,6 +14,8 @@ func update(delta: float) -> void:
 func physics_update(delta: float) -> void:
 	if player.is_airborne() and player.velocity.y < max_downward_velocity:
 		player.velocity += get_gravity() * delta
+	elif player.velocity.y >= max_downward_velocity:
+		player.change_state(Player.State.LONG_FALL)
 
 func get_gravity():
 	if player.velocity.y > 0:
