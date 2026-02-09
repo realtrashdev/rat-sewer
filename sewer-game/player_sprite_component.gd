@@ -16,7 +16,7 @@ func physics_update(delta: float) -> void:
 	pass
 
 func _directional_flipping() -> void:
-	if player.is_airborne():
+	if player.is_airborne() or player.get_current_state() == Player.State.CLING:
 		return
 	
 	# Reversed for correct flipping

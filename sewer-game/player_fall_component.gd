@@ -26,9 +26,11 @@ func _on_state_changed(new_state: Player.State) -> void:
 		_long_fall_timer = 0
 
 func _check_wall_bounce():
-	if player.is_on_wall() and player.is_falling():
+	if player.is_on_wall() and player.is_airborne():
 		stored_speed = -stored_speed
 		player.velocity.x = stored_speed
+		if player.get_current_state() == Player.State.JUMPING:
+			player.change_state(Player.State.FALL)
 	else:
 		stored_speed = player.velocity.x
 

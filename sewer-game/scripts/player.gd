@@ -9,7 +9,7 @@ enum State {
 	LAND, # Normal landing after a jump or fall etc.
 	HARD_LAND, # To play animation where rat is faceplanted on ground
 	
-	JUMPING, # No X movement while in air, will not bounce off walls in this state
+	JUMPING, # No X movement while in air, bounce off walls in this state
 	FALL, # No X movement while in air, bounce off walls in this state
 	LONG_FALL, # Hit wall while falling or falling for a long time, can't do anything but watch
 	
@@ -22,7 +22,7 @@ enum State {
 signal state_changed(new_state: State)
 
 const GROUNDED_STATES: Array[State] = [State.ACTIVE, State.IDLE, State.LAND, State.HARD_LAND]
-const AIRBORNE_STATES: Array[State] = [State.JUMPING, State.FALL, State.LONG_FALL]
+const AIRBORNE_STATES: Array[State] = [State.JUMPING, State.FALL, State.LONG_FALL, State.TRY_CLING]
 const FALLING_STATES: Array[State] = [State.FALL, State.LONG_FALL]
 
 var components: Array[PlayerComponent]
