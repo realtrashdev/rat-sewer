@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dv0dlj32qkfyj"]
+
+[ext_resource type="Script" uid="uid://bl7dgxhh4cbls" path="res://scripts/sign.gd" id="1_8yyji"]
+[ext_resource type="Texture2D" uid="uid://ddkbjmbxohnvt" path="res://art/sign.aseprite" id="1_shbub"]
+[ext_resource type="Texture2D" uid="uid://cnnnrmeafd06" path="res://art/up_arrow.aseprite" id="2_kd50q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shbub"]
+size = Vector2(8, 8)
+
+[node name="Sign" type="Node2D" unique_id=1626042183]
+script = ExtResource("1_8yyji")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1346127076]
+z_index = -1
+position = Vector2(0, -4)
+texture = ExtResource("1_shbub")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1009091193]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=393924062]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_shbub")
+
+[node name="UpArrow" type="Sprite2D" parent="." unique_id=210992590]
+visible = false
+z_index = 1
+position = Vector2(0, -12)
+texture = ExtResource("2_kd50q")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

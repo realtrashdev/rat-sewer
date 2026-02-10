@@ -3,7 +3,7 @@ class_name PlayerGravityComponent extends PlayerComponent
 @export var low_gravity_multiplier: float = 0.7
 @export var high_gravity_multiplier: float = 2.5
 @export var max_downward_velocity: float = 300.0
-
+@export var cling_gravity_multiplier: float = 0.1
 
 func setup() -> void:
 	pass
@@ -16,6 +16,8 @@ func physics_update(delta: float) -> void:
 		player.velocity += get_gravity() * delta
 	elif player.velocity.y >= max_downward_velocity:
 		player.change_state(Player.State.LONG_FALL)
+	elif player.get_current_state() == Player.State.CLING:
+		player.velocity += get_gravity() * cling_gravity_multiplier * delta
 
 func get_gravity():
 	if player.velocity.y > 0:

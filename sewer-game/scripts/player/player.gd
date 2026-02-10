@@ -49,7 +49,7 @@ func get_current_state() -> State:
 
 func change_state(new_state: State) -> void:
 	if new_state != current_state:
-		print(State.keys()[new_state])
+		#print(State.keys()[new_state])
 		current_state = new_state
 		state_changed.emit(new_state)
 
@@ -60,9 +60,10 @@ func _cache_components() -> void:
 	print("PlayerComponents Cached. Amount stored: %s" % components.size())
 
 func get_component(type: StringName) -> PlayerComponent:
-	for c in components.size():
-		if components[c].is_class(type):
-			return components[c]
+	for c in components:
+		var script = c.get_script()
+		if script and script.get_global_name() == type:
+			return c
 	return null
 
 func is_airborne() -> bool:
@@ -73,3 +74,9 @@ func is_grounded() -> bool:
 
 func is_falling() -> bool:
 	return current_state in FALLING_STATES
+
+func get_movement_speed() -> float:
+	var comp = get_component("PlayerMovementComponent") as PlayerMovementComponent
+	if comp:
+		return comp.move_speed
+	return 0.0

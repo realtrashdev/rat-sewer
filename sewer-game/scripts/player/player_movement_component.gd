@@ -33,6 +33,9 @@ func _horizontal_movement():
 		player.velocity.x = move_toward(player.velocity.x, move_speed * direction, ground_stop_speed)
 
 func _jumping() -> void:
+	if get_tree().paused:
+		return
 	if Input.is_action_just_pressed("jump"):
+		player.velocity.y = 0
 		player.velocity.y = -jump_force
 		player.change_state(Player.State.JUMPING)
